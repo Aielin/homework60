@@ -7,14 +7,12 @@ interface MessageFormProps {
   setAuthor: (author: string) => void;
 }
 
-const MessageForm: React.FC<MessageFormProps> = ({ onSendMessage }) => {
-  const [author, setAuthor] = useState("");
+const MessageForm: React.FC<MessageFormProps> = ({ onSendMessage, author, setAuthor }) => {
   const [message, setMessage] = useState("");
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     onSendMessage(author, message);
-    setAuthor("");
     setMessage("");
   };
 
