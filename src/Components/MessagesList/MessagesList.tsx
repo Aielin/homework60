@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { ListGroup } from "react-bootstrap";
 
 interface Message {
   author: string;
@@ -12,14 +13,19 @@ interface MessagesListProps {
 
 const MessagesList: React.FC<MessagesListProps> = ({ messages }) => {
   return (
-    <ul className="list-group">
+    <ListGroup>
       {messages.map((msg, index) => (
-        <li key={index} className="list-group-item">
-          {msg.author}: {msg.message} (
-          {new Date(msg.datetime).toLocaleDateString()} {new Date(msg.datetime).toLocaleTimeString()})
-        </li>
+        <ListGroup.Item key={index} className="message">
+          <div className="message-content">
+            <strong>{msg.author}: </strong> {msg.message}
+          </div>
+          <span className="message-time">
+            {new Date(msg.datetime).toLocaleDateString()}{" "}
+            {new Date(msg.datetime).toLocaleTimeString()}
+          </span>
+        </ListGroup.Item>
       ))}
-    </ul>
+    </ListGroup>
   );
 };
 

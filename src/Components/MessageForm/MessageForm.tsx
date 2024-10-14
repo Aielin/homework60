@@ -1,45 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
 
 interface MessageFormProps {
   onSendMessage: (author: string, message: string) => void;
+  author: string;
+  setAuthor: (author: string) => void;
 }
 
 const MessageForm: React.FC<MessageFormProps> = ({ onSendMessage }) => {
-  const [author, setAuthor] = useState('');
-  const [message, setMessage] = useState('');
+  const [author, setAuthor] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     onSendMessage(author, message);
-    setAuthor('');
-    setMessage('');
+    setAuthor("");
+    setMessage("");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-3">
-      <div className="mb-3">
-        <label htmlFor="author" className="form-label">Your Name</label>
-        <input
+    <Form onSubmit={handleSubmit} className="mb-3">
+      <Form.Group className="mb-3" controlId="formAuthor">
+        <label>Your Name</label>
+        <Form.Control
           type="text"
-          id="author"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
-          className="form-control"
           required
         />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="message" className="form-label">Message</label>
-        <textarea
-          id="message"
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formMessage">
+        <label>Message</label>
+        <Form.Control
+          as="textarea"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          className="form-control"
           required
         />
-      </div>
-      <button type="submit" className="btn btn-primary">Send</button>
-    </form>
+      </Form.Group>
+
+      <Button variant="primary" type="submit">
+        <i className="bi bi-send"></i>
+      </Button>
+    </Form>
   );
 };
 

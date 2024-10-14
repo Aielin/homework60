@@ -1,0 +1,21 @@
+body {
+  background-color: #f2f2fc;
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+}
+
+.message {
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-time {
+  font-size: 0.8em;
+  color: #888;
+  margin-top: 5px;
+  align-self: flex-end;
+}
