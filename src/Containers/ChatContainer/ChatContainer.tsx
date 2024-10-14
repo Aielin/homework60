@@ -29,9 +29,8 @@ const ChatContainer: React.FC = () => {
     const params = new URLSearchParams();
     params.append("author", author);
     params.append("message", message);
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
+
+    clearMessageInterval();
 
     try {
       await fetch(url, {
@@ -39,11 +38,22 @@ const ChatContainer: React.FC = () => {
         body: params,
       });
       await getMessages();
-      intervalRef.current = setInterval(getMessages, 3000);
+      startMessageInterval();
     } catch (error) {
       console.error("Error sending message:", error);
     }
   };
+
+  const clearMessageInterval = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+  };
+
+  const startMessageInterval = () => {
+    intervalRef.current = window.setInterval(getMessages, 3000);
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,14 +61,13 @@ const ChatContainer: React.FC = () => {
     };
 
     fetchData().catch((error) => console.error('Error fetching initial data:', error));
-    intervalRef.current = setInterval(getMessages, 3000);
+    startMessageInterval();
 
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+      clearMessageInterval();
     };
-  }, []);
+  },);
+
 
   return (
     <div className="container mt-5 mb-5">
